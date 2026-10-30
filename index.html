@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sophia's VIP Live Lounge</title>
+    <title>Sophia - Live Video Chat</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #0f1016;
+            background-color: #0b0c10;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -22,216 +22,221 @@
         }
         .container {
             width: 100%;
-            max-width: 480px;
-            background: #181922;
+            max-width: 420px;
+            background: #12141d;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            padding: 20px 16px;
             position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            box-shadow: 0 0 25px rgba(0,0,0,0.9);
         }
-        /* Header */
-        .header {
+        /* Profile Section */
+        .profile-container {
+            position: relative;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        .avatar-ring {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff2a5f, #7158e2);
+            padding: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar {
+            width: 94px;
+            height: 94px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .live-badge {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00b894;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            border: 2px solid #12141d;
+            letter-spacing: 0.5px;
+        }
+        /* Name & Info */
+        .name-info {
+            text-align: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        .name-info h1 {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .name-info h1 span {
+            background: #262838;
+            font-size: 13px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: #ccc;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 13px;
+            color: #b2bec3;
+            margin-top: 6px;
+        }
+        /* Status Box */
+        .status-box {
+            background: #1a1c29;
+            border: 1px solid #2a2d42;
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-size: 13px;
+            text-align: center;
+            color: #dfe6e9;
+            margin-bottom: 20px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        /* Action Buttons */
+        .buttons-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: auto;
+        }
+        .btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 16px;
-            background: #ff2a5f;
+            padding: 15px 20px;
+            border-radius: 14px;
+            text-decoration: none;
             color: white;
-            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
         }
-        .profile-info {
+        .btn:active {
+            transform: scale(0.97);
+        }
+        .btn-pink {
+            background: linear-gradient(135deg, #ff2a5f 0%, #ff5e62 100%);
+        }
+        .btn-purple {
+            background: linear-gradient(135deg, #8854d0 0%, #a55eea 100%);
+        }
+        .btn-green {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+        }
+        .btn-content {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            flex-direction: column;
         }
-        .avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #fff;
-        }
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            background-color: #2ecc71;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-        }
-        .name-status h2 {
-            font-size: 16px;
+        .btn-title {
+            font-size: 15px;
             font-weight: 700;
         }
-        .name-status p {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-        .live-badge {
-            background: rgba(0,0,0,0.3);
-            padding: 4px 10px;
-            border-radius: 20px;
+        .btn-sub {
             font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-weight: normal;
+            opacity: 0.85;
+            margin-top: 2px;
         }
-        /* Video / Teaser Screen */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 340px;
-            background: #000;
-            cursor: pointer;
+        .arrow {
+            font-size: 18px;
         }
-        .video-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.9;
-        }
-        /* Timer */
-        .timer-bar {
-            background: #ff2a5f;
-            color: white;
-            text-align: center;
-            padding: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-        }
-        /* Simulated Chat Box */
-        .chat-box {
-            flex: 1;
-            padding: 15px;
+        /* Footer Badges */
+        .footer-badges {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            overflow-y: auto;
-            max-height: 160px;
-            cursor: pointer;
-        }
-        .message {
-            max-width: 85%;
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-        .message.incoming {
-            background: #262838;
-            color: #fff;
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
-        /* Action Area */
-        .action-area {
-            padding: 15px;
-            background: #181922;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .btn-unlock {
-            display: block;
+            justify-content: space-around;
             width: 100%;
-            background: linear-gradient(135deg, #ff2a5f 0%, #ff5e62 100%);
-            color: white;
-            text-align: center;
-            padding: 14px;
-            border-radius: 30px;
-            font-size: 15px;
-            font-weight: bold;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(255, 42, 95, 0.4);
-            transition: 0.2s;
-        }
-        .btn-unlock:active {
-            transform: scale(0.98);
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #1f2233;
+            font-size: 11px;
+            color: #636e72;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Header (Clickable to Direct Link) -->
-        <div class="header" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-            <div class="profile-info">
-                <div style="position: relative;">
-                    <img src="https://images.unsplash.com/photo-1545231027-637d2f6210f8?w=150" alt="Sophia" class="avatar">
-                    <div class="status-dot"></div>
-                </div>
-                <div class="name-status">
-                    <h2>Sophia, 23 🔥</h2>
-                    <p>Free Call • Premium Call Ready</p>
-                </div>
+        <!-- Profile Picture & Live Badge -->
+        <div class="profile-container" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+            <div class="avatar-ring">
+                <!-- এখানে আপনার পছন্দের ছবির লিংক বা আপনার আপলোড করা ছবির লিংক বসাতে পারেন -->
+                <img src="https://drive.google.com/file/d/1ALGQAl__xB-jlPBSitSRgKwXEXkubaiL/view?usp=drivesdk" alt="Sophia" class="avatar">
             </div>
-            <div class="live-badge">LIVE</div>
+            <div class="live-badge">LIVE NOW</div>
         </div>
 
-        <!-- Video / Teaser Screen (Clickable) -->
-        <div class="video-container" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-            <img src="https://drive.google.com/file/d/1ALGQAl__xB-jlPBSitSRgKwXEXkubaiL/view?usp=drivesdk" alt="Stream Preview">
+        <!-- Name & Stats -->
+        <div class="name-info" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+            <h1>Sophia <span>22</span></h1>
+            <div class="stats">
+                <span>⭐ 4.9 (1.8k reviews)</span>
+                <span>•</span>
+                <span>👁️ 2.4k views</span>
+            </div>
         </div>
 
-        <!-- Timer (Clickable) -->
-        <div class="timer-bar" id="timer" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">Free Access Expires in: 02:00</div>
-
-        <!-- Simulated Chat Box (Clickable) -->
-        <div class="chat-box" id="chatBox" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-            <div class="message incoming">Hey there! Welcome to my private room. Choose Free Call or Premium Call below! 😉</div>
-            <div class="message incoming">Make sure to verify your connection so we can start video calling right now.</div>
-            <div class="message incoming">Don't leave me hanging here! ❤️</div>
+        <!-- Status Message Box -->
+        <div class="status-box" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+            💬 Available for private video calls & chat right now! Let's talk 🔥
         </div>
 
-        <!-- Action Buttons with Direct Link -->
-        <div class="action-area">
-            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn-unlock">📞 START FREE CALL NOW</a>
-            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn-unlock" style="background: linear-gradient(135deg, #7158e2 0%, #3b318f 100%);">💎 START PREMIUM VIDEO CALL</a>
+        <!-- Action Buttons -->
+        <div class="buttons-group">
+            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-pink">
+                <div class="btn-content">
+                    <span class="btn-title">🎥 JOIN FREE CALL</span>
+                    <span class="btn-sub">Start Live Private Cam Stream</span>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-purple">
+                <div class="btn-content">
+                    <span class="btn-title">💬 ROOM CHAT</span>
+                    <span class="btn-sub">Private Instant Messaging</span>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-green">
+                <div class="btn-content">
+                    <span class="btn-title">📞 FREE CALL</span>
+                    <span class="btn-sub">1-on-1 Direct Audio Connection</span>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+
+        <!-- Footer Trust Badges -->
+        <div class="footer-badges">
+            <span>🛡️ 100% Secure</span>
+            <span>⚡ No Signup Needed</span>
+            <span>🔒 Private Line</span>
         </div>
     </div>
 
-    <script>
-        // Countdown Timer Logic
-        let timeLeft = 120;
-        const timerElement = document.getElementById('timer');
-
-        const countdown = setInterval(() => {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            timerElement.innerHTML = `Free Access Expires in: ${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-            timeLeft--;
-            if (timeLeft < 0) {
-                clearInterval(countdown);
-                timerElement.innerHTML = "Session Expired! Verify to Continue.";
-            }
-        }, 1000);
-
-        // Simulated Chat Messages
-        const chatBox = document.getElementById('chatBox');
-        const messages = [
-            "I'm waiting for your text... Click below to connect! 😍",
-            "Make sure to verify so we can start video calling.",
-            "Don't leave me hanging here! ❤️",
-            "Select Free Call or Premium Call to join my private room!"
-        ];
-
-        let msgIndex = 0;
-        setInterval(() => {
-            if (msgIndex < messages.length) {
-                setTimeout(() => {
-                    const msgDiv = document.createElement('div');
-                    msgDiv.className = 'message incoming';
-                    msgDiv.innerText = messages[msgIndex];
-                    chatBox.appendChild(msgDiv);
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                    msgIndex++;
-                }, 3000);
-            }
-        }, 6000);
-    </script>
 </body>
 </html>
