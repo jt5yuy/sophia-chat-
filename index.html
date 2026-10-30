@@ -23,18 +23,22 @@
         .container {
             width: 100%;
             max-width: 480px;
-            background: #181a25;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            overflow: hidden;
-            border: 1px solid #2a2d3d;
+            background: #181922;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
+        /* Header */
         .header {
-            background: linear-gradient(135deg, #ff2a5f, #ff708b);
-            padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 12px 16px;
+            background: #ff2a5f;
+            color: white;
+            cursor: pointer;
         }
         .profile-info {
             display: flex;
@@ -42,193 +46,192 @@
             gap: 12px;
         }
         .avatar {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            border: 2px solid #fff;
             object-fit: cover;
-            position: relative;
+            border: 2px solid #fff;
         }
         .status-dot {
             width: 12px;
             height: 12px;
             background-color: #2ecc71;
+            border: 2px solid #fff;
             border-radius: 50%;
             position: absolute;
-            bottom: 2px;
-            left: 38px;
-            border: 2px solid #181a25;
+            bottom: 0;
+            right: 0;
         }
         .name-status h2 {
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 700;
         }
         .name-status p {
             font-size: 12px;
-            color: #ffe6eb;
+            opacity: 0.9;
         }
         .live-badge {
             background: rgba(0,0,0,0.3);
-            padding: 5px 10px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
             letter-spacing: 1px;
-            animation: pulse 1.5s infinite;
         }
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
+        /* Video / Teaser Screen */
         .video-container {
             position: relative;
             width: 100%;
-            height: 260px;
+            height: 340px;
             background: #000;
+            cursor: pointer;
         }
-        .video-container video, .video-container img {
+        .video-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.9;
         }
+        /* Timer */
         .timer-bar {
             background: #ff2a5f;
-            color: #fff;
+            color: white;
             text-align: center;
+            padding: 8px;
             font-size: 13px;
-            padding: 6px;
             font-weight: bold;
+            letter-spacing: 0.5px;
+            cursor: pointer;
         }
+        /* Simulated Chat Box */
         .chat-box {
-            height: 180px;
-            overflow-y: auto;
+            flex: 1;
             padding: 15px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            background: #13151d;
+            overflow-y: auto;
+            max-height: 160px;
+            cursor: pointer;
         }
         .message {
-            max-width: 80%;
+            max-width: 85%;
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 13px;
             line-height: 1.4;
         }
         .message.incoming {
-            background: #232635;
+            background: #262838;
+            color: #fff;
             align-self: flex-start;
             border-bottom-left-radius: 2px;
         }
-        .message.outgoing {
-            background: #ff2a5f;
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-        }
+        /* Action Area */
         .action-area {
             padding: 15px;
-            background: #181a25;
-            border-top: 1px solid #2a2d3d;
-            text-align: center;
+            background: #181922;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         .btn-unlock {
             display: block;
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #ff2a5f, #ff708b);
+            background: linear-gradient(135deg, #ff2a5f 0%, #ff5e62 100%);
             color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
+            text-align: center;
+            padding: 14px;
+            border-radius: 30px;
             font-size: 15px;
-            text-transform: uppercase;
+            font-weight: bold;
+            text-decoration: none;
             box-shadow: 0 4px 15px rgba(255, 42, 95, 0.4);
-            transition: 0.3s;
+            transition: 0.2s;
         }
-        .btn-unlock:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 42, 95, 0.6);
+        .btn-unlock:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- Header -->
-    <div class="header">
-        <div class="profile-info">
-            <div style="position: relative;">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Sophia" class="avatar">
-                <div class="status-dot"></div>
+    <div class="container">
+        <!-- Header (Clickable to Direct Link) -->
+        <div class="header" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+            <div class="profile-info">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1545231027-637d2f6210f8?w=150" alt="Sophia" class="avatar">
+                    <div class="status-dot"></div>
+                </div>
+                <div class="name-status">
+                    <h2>Sophia, 23 🔥</h2>
+                    <p>Free Call • Premium Call Ready</p>
+                </div>
             </div>
-            <div class="name-status">
-                <h2>Sophia, 23 🔥</h2>
-                <p>Online Now • Private Cam</p>
-            </div>
+            <div class="live-badge">LIVE</div>
         </div>
-        <div class="live-badge">● LIVE</div>
+
+        <!-- Video / Teaser Screen (Clickable) -->
+        <div class="video-container" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+            <img src="https://drive.google.com/file/d/1ALGQAl__xB-jlPBSitSRgKwXEXkubaiL/view?usp=drivesdk" alt="Stream Preview">
+        </div>
+
+        <!-- Timer (Clickable) -->
+        <div class="timer-bar" id="timer" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">Free Access Expires in: 02:00</div>
+
+        <!-- Simulated Chat Box (Clickable) -->
+        <div class="chat-box" id="chatBox" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+            <div class="message incoming">Hey there! Welcome to my private room. Choose Free Call or Premium Call below! 😉</div>
+            <div class="message incoming">Make sure to verify your connection so we can start video calling right now.</div>
+            <div class="message incoming">Don't leave me hanging here! ❤️</div>
+        </div>
+
+        <!-- Action Buttons with Direct Link -->
+        <div class="action-area">
+            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn-unlock">📞 START FREE CALL NOW</a>
+            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn-unlock" style="background: linear-gradient(135deg, #7158e2 0%, #3b318f 100%);">💎 START PREMIUM VIDEO CALL</a>
+        </div>
     </div>
 
-    <!-- Video / Teaser Screen -->
-    <div class="video-container">
-        <!-- আপনি এখানে আপনার কোনো প্রিভিউ ভিডিও বা আকর্ষণীয় ছবি দিতে পারেন -->
-        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500" alt="Stream Preview" id="streamPreview">
-    </div>
+    <script>
+        // Countdown Timer Logic
+        let timeLeft = 120;
+        const timerElement = document.getElementById('timer');
 
-    <!-- Timer -->
-    <div class="timer-bar" id="timer">Free Access Expires in: 02:00</div>
+        const countdown = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            timerElement.innerHTML = `Free Access Expires in: ${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timeLeft--;
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                timerElement.innerHTML = "Session Expired! Verify to Continue.";
+            }
+        }, 1000);
 
-    <!-- Simulated Chat Box -->
-    <div class="chat-box" id="chatBox">
-        <div class="message incoming">Hey there! 👋 Welcome to my private room. Are you ready to chat with me?</div>
-    </div>
+        // Simulated Chat Messages
+        const chatBox = document.getElementById('chatBox');
+        const messages = [
+            "I'm waiting for your text... Click below to connect! 😍",
+            "Make sure to verify so we can start video calling.",
+            "Don't leave me hanging here! ❤️",
+            "Select Free Call or Premium Call to join my private room!"
+        ];
 
-    <!-- Action Button (এখানে আপনার অ্যাডনেটওয়ার্কের Smartlink বা Direct Link বসাবেন) -->
-    <div class="action-area">
-        <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn-unlock" id="unlockBtn">🔓 Click Here to Start Private Chat</a>
-    </div>
-</div>
-
-<script>
-    // Countdown Timer Logic
-    let timeLeft = 120;
-    const timerElement = document.getElementById('timer');
-    
-    const countdown = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        timerElement.innerHTML = `Free Access Expires in: ${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        timeLeft--;
-        if (timeLeft < 0) {
-            clearInterval(countdown);
-            timerElement.innerHTML = "Session Expired! Verify to Continue.";
-        }
-    }, 1000);
-
-    // Simulated Chat Messages to keep traffic engaged
-    const chatBox = document.getElementById('chatBox');
-    const messages = [
-        "I'm waiting for your text... Click below to connect! 😉",
-        "Make sure to verify so we can start video calling.",
-        "Don't leave me hanging here! ❤️"
-    ];
-
-    let msgIndex = 0;
-    setInterval(() => {
-        if(msgIndex < messages.length) {
-            setTimeout(() => {
-                const msgDiv = document.createElement('div');
-                msgDiv.className = 'message incoming';
-                msgDiv.innerText = messages[msgIndex];
-                chatBox.appendChild(msgDiv);
-                chatBox.scrollTop = chatBox.scrollHeight;
-                msgIndex++;
-            }, 3000);
-        }
-    }, 5000);
-</script>
-
+        let msgIndex = 0;
+        setInterval(() => {
+            if (msgIndex < messages.length) {
+                setTimeout(() => {
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'message incoming';
+                    msgDiv.innerText = messages[msgIndex];
+                    chatBox.appendChild(msgDiv);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    msgIndex++;
+                }, 3000);
+            }
+        }, 6000);
+    </script>
 </body>
 </html>
