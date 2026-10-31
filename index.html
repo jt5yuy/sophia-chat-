@@ -32,10 +32,50 @@
             position: relative;
             box-shadow: 0 0 25px rgba(0,0,0,0.9);
         }
+        /* Background Slideshow Container */
+        .bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 220px;
+            z-index: 1;
+            overflow: hidden;
+            opacity: 0.35;
+        }
+        .bg-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .bg-slide.active {
+            opacity: 1;
+        }
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(to bottom, rgba(18,20,29,0.2), #12141d);
+            z-index: 2;
+        }
+
         /* Profile Section */
+        .profile-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
         .profile-container {
             position: relative;
-            margin-top: 15px;
+            margin-top: 20px;
             margin-bottom: 15px;
             cursor: pointer;
         }
@@ -55,21 +95,30 @@
             border-radius: 50%;
             object-fit: cover;
         }
+        
+        /* Blinking Live Badge */
+        @keyframes blink {
+            0% { opacity: 1; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.4; transform: translateX(-50%) scale(0.95); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
         .live-badge {
             position: absolute;
             bottom: -5px;
             left: 50%;
             transform: translateX(-50%);
-            background: #00b894;
+            background: #ff2a5f;
             color: white;
             font-size: 10px;
             font-weight: bold;
-            padding: 3px 10px;
+            padding: 3px 12px;
             border-radius: 20px;
             text-transform: uppercase;
             border: 2px solid #12141d;
             letter-spacing: 0.5px;
+            animation: blink 1.2s infinite ease-in-out;
         }
+
         /* Name & Info */
         .name-info {
             text-align: center;
@@ -99,6 +148,7 @@
             color: #b2bec3;
             margin-top: 6px;
         }
+
         /* Status Box */
         .status-box {
             background: #1a1c29;
@@ -108,24 +158,25 @@
             font-size: 13px;
             text-align: center;
             color: #dfe6e9;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             width: 100%;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+
         /* Action Buttons */
         .buttons-group {
             display: flex;
             flex-direction: column;
             gap: 12px;
             width: 100%;
-            margin-bottom: auto;
+            margin-bottom: 15px;
         }
         .btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 20px;
+            padding: 14px 20px;
             border-radius: 14px;
             text-decoration: none;
             color: white;
@@ -137,39 +188,66 @@
         .btn:active {
             transform: scale(0.97);
         }
-        .btn-pink {
-            background: linear-gradient(135deg, #ff2a5f 0%, #ff5e62 100%);
+        .btn-pink { background: linear-gradient(135deg, #ff2a5f 0%, #ff5e62 100%); }
+        .btn-purple { background: linear-gradient(135deg, #8854d0 0%, #a55eea 100%); }
+        .btn-green { background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); }
+        
+        .btn-content { display: flex; flex-direction: column; }
+        .btn-title { font-size: 15px; font-weight: 700; }
+        .btn-sub { font-size: 11px; font-weight: normal; opacity: 0.85; margin-top: 2px; }
+        .arrow { font-size: 18px; }
+
+        /* Fake Live Comments Section */
+        .comments-section {
+            width: 100%;
+            background: #181a26;
+            border: 1px solid #23263a;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
         }
-        .btn-purple {
-            background: linear-gradient(135deg, #8854d0 0%, #a55eea 100%);
+        .comments-title {
+            font-size: 12px;
+            color: #ff2a5f;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-align: center;
         }
-        .btn-green {
-            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
-        }
-        .btn-content {
+        .comments-box {
+            height: 110px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
+            gap: 8px;
         }
-        .btn-title {
-            font-size: 15px;
-            font-weight: 700;
+        .comment-item {
+            font-size: 12px;
+            background: #12141d;
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: #dcdde1;
+            border-left: 3px solid #ff2a5f;
+            animation: fadeIn 0.5s ease-in-out;
         }
-        .btn-sub {
-            font-size: 11px;
-            font-weight: normal;
-            opacity: 0.85;
-            margin-top: 2px;
+        .comment-user {
+            font-weight: bold;
+            color: #00cec9;
+            margin-right: 5px;
         }
-        .arrow {
-            font-size: 18px;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
         /* Footer Badges */
         .footer-badges {
             display: flex;
             justify-content: space-around;
             width: 100%;
-            margin-top: 20px;
-            padding-top: 15px;
+            margin-top: auto;
+            padding-top: 12px;
             border-top: 1px solid #1f2233;
             font-size: 11px;
             color: #636e72;
@@ -178,65 +256,120 @@
 </head>
 <body>
 
+    <!-- Background Image Slideshow -->
+    <div class="bg-slider">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600" class="bg-slide active" alt="Slide">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600" class="bg-slide" alt="Slide">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600" class="bg-slide" alt="Slide">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600" class="bg-slide" alt="Slide">
+    </div>
+    <div class="bg-overlay"></div>
+
     <div class="container">
-        <!-- Profile Picture & Live Badge -->
-        <div class="profile-container" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-            <div class="avatar-ring">
-                <!-- এখানে আপনার পছন্দের ছবির লিংক বা আপনার আপলোড করা ছবির লিংক বসাতে পারেন -->
-                <img src="https://drive.google.com/file/d/1ALGQAl__xB-jlPBSitSRgKwXEXkubaiL/view?usp=drivesdk" alt="Sophia" class="avatar">
+        <div class="profile-content">
+            <!-- Profile Picture & Blinking Live Badge -->
+            <div class="profile-container" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+                <div class="avatar-ring">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200" alt="Sophia" class="avatar">
+                </div>
+                <div class="live-badge">LIVE NOW</div>
             </div>
-            <div class="live-badge">LIVE NOW</div>
-        </div>
 
-        <!-- Name & Stats -->
-        <div class="name-info" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-            <h1>Sophia <span>22</span></h1>
-            <div class="stats">
-                <span>⭐ 4.9 (1.8k reviews)</span>
-                <span>•</span>
-                <span>👁️ 2.4k views</span>
+            <!-- Name & Stats -->
+            <div class="name-info" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+                <h1>Sophia <span>22</span></h1>
+                <div class="stats">
+                    <span>⭐ 4.9 (1.8k reviews)</span>
+                    <span>•</span>
+                    <span>👁️ 2.4k views</span>
+                </div>
             </div>
-        </div>
 
-        <!-- Status Message Box -->
-        <div class="status-box" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-            💬 Available for private video calls & chat right now! Let's talk 🔥
-        </div>
+            <!-- Status Message Box -->
+            <div class="status-box" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+                💬 Available for private video calls & chat right now! Let's talk 🔥
+            </div>
 
-        <!-- Action Buttons -->
-        <div class="buttons-group">
-            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-pink">
-                <div class="btn-content">
-                    <span class="btn-title">🎥 JOIN FREE CALL</span>
-                    <span class="btn-sub">Start Live Private Cam Stream</span>
+            <!-- Action Buttons -->
+            <div class="buttons-group">
+                <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-pink">
+                    <div class="btn-content">
+                        <span class="btn-title">🎥 JOIN FREE CALL</span>
+                        <span class="btn-sub">Start Live Private Cam Stream</span>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+
+                <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-purple">
+                    <div class="btn-content">
+                        <span class="btn-title">💬 ROOM CHAT</span>
+                        <span class="btn-sub">Private Instant Messaging</span>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+
+                <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-green">
+                    <div class="btn-content">
+                        <span class="btn-title">📞 FREE CALL</span>
+                        <span class="btn-sub">1-on-1 Direct Audio Connection</span>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+
+            <!-- Fake Comments Section -->
+            <div class="comments-section" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+                <div class="comments-title">🔴 Live Chat Feed</div>
+                <div class="comments-box" id="commentsBox">
+                    <div class="comment-item"><span class="comment-user">Alex_99:</span> Wow, you look stunning! Connecting now... 🔥</div>
+                    <div class="comment-item"><span class="comment-user">David_US:</span> Free call actually works! Hey Sophia! 😉</div>
                 </div>
-                <span class="arrow">→</span>
-            </a>
+            </div>
 
-            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-purple">
-                <div class="btn-content">
-                    <span class="btn-title">💬 ROOM CHAT</span>
-                    <span class="btn-sub">Private Instant Messaging</span>
-                </div>
-                <span class="arrow">→</span>
-            </a>
-
-            <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-green">
-                <div class="btn-content">
-                    <span class="btn-title">📞 FREE CALL</span>
-                    <span class="btn-sub">1-on-1 Direct Audio Connection</span>
-                </div>
-                <span class="arrow">→</span>
-            </a>
-        </div>
-
-        <!-- Footer Trust Badges -->
-        <div class="footer-badges">
-            <span>🛡️ 100% Secure</span>
-            <span>⚡ No Signup Needed</span>
-            <span>🔒 Private Line</span>
+            <!-- Footer Trust Badges -->
+            <div class="footer-badges">
+                <span>🛡️ 100% Secure</span>
+                <span>⚡ No Signup Needed</span>
+                <span>🔒 Private Line</span>
+            </div>
         </div>
     </div>
 
+    <script>
+        // Background Slideshow Script
+        let slides = document.querySelectorAll('.bg-slide');
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 3500);
+
+        // Dynamic Fake Comments Script
+        const fakeComments = [
+            {user: "John_NYC", text: "Just joined the private room, amazing quality! 💎"},
+            {user: "Mark_77", text: "She accepted my video call instantly! So hot 🔥"},
+            {user: "Kevin_B", text: "Best live stream ever, click the free call guys!"},
+            {user: "Chris_99", text: "Sophia you look gorgeous in that outfit! 😍"},
+            {user: "Ryan_X", text: "Verified and connected! Wow 10/10 🚀"},
+            {user: "Daniel_K", text: "So smooth, no lag at all. Joining again!"}
+        ];
+
+        const commentsBox = document.getElementById('commentsBox');
+        let commentIndex = 0;
+
+        setInterval(() => {
+            let c = fakeComments[commentIndex];
+            let item = document.createElement('div');
+            item.className = 'comment-item';
+            item.innerHTML = `<span class="comment-user">${c.user}:</span> ${c.text}`;
+            
+            commentsBox.appendChild(item);
+            if (commentsBox.children.length > 3) {
+                commentsBox.removeChild(commentsBox.children[0]);
+            }
+            commentIndex = (commentIndex + 1) % fakeComments.length;
+        }, 3000);
+    </script>
 </body>
 </html>
