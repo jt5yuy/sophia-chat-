@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sophia - Live Video Chat</title>
+    <title>Sophia - Exclusive Live Cam & Private Chat</title>
+    
+    <!-- === Adsterra Social Bar Code === -->
+    <script data-cfasync="false" src="https://bicea.org/14/929b4550070ef1b3c6df883b479b11a8"></script>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
         }
         body {
-            background-color: #0b0c10;
+            background-color: #030407;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -23,25 +27,25 @@
         .container {
             width: 100%;
             max-width: 420px;
-            background: #12141d;
+            background: #0b0c14;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px 16px;
             position: relative;
-            box-shadow: 0 0 25px rgba(0,0,0,0.9);
+            box-shadow: 0 0 50px rgba(0,0,0,0.95);
         }
-        /* Background Slideshow Container */
+        /* Background Slideshow */
         .bg-slider {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 220px;
+            height: 280px;
             z-index: 1;
             overflow: hidden;
-            opacity: 0.40;
+            opacity: 0.50;
         }
         .bg-slide {
             position: absolute;
@@ -49,19 +53,32 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1.5s ease-in-out, transform 6s ease;
+            transform: scale(1.1);
         }
         .bg-slide.active {
             opacity: 1;
+            transform: scale(1);
         }
         .bg-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 220px;
-            background: linear-gradient(to bottom, rgba(18,20,29,0.2), #12141d);
+            height: 280px;
+            background: linear-gradient(to bottom, rgba(11,12,20,0.1) 30%, #0b0c14 100%);
             z-index: 2;
+        }
+
+        /* Ad Banner Container */
+        .ad-banner {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 12px;
+            z-index: 3;
+            overflow: hidden;
         }
 
         /* Profile Section */
@@ -73,268 +90,366 @@
             align-items: center;
             width: 100%;
         }
+        
+        .top-banner {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 11px;
+            color: #a4b0be;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .online-dot {
+            color: #00cec9;
+            animation: blinkDot 1s infinite alternate;
+        }
+        @keyframes blinkDot {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
         .profile-container {
             position: relative;
-            margin-top: 20px;
-            margin-bottom: 15px;
+            margin-top: 5px;
+            margin-bottom: 12px;
             cursor: pointer;
         }
         .avatar-ring {
-            width: 100px;
-            height: 100px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #ff2a5f, #7158e2);
-            padding: 3px;
+            background: linear-gradient(135deg, #ff2a5f, #7158e2, #00cec9);
+            padding: 4px;
             display: flex;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 0 25px rgba(255, 42, 95, 0.6);
         }
         .avatar {
-            width: 94px;
-            height: 94px;
+            width: 97px;
+            height: 97px;
             border-radius: 50%;
             object-fit: cover;
         }
         
-        /* Blinking Live Badge */
-        @keyframes blink {
-            0% { opacity: 1; transform: translateX(-50%) scale(1); }
-            50% { opacity: 0.4; transform: translateX(-50%) scale(0.95); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        @keyframes pulseLive {
+            0% { transform: translateX(-50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 42, 95, 0.8); }
+            70% { transform: translateX(-50%) scale(1.08); box-shadow: 0 0 0 14px rgba(255, 42, 95, 0); }
+            100% { transform: translateX(-50%) scale(1); box-shadow: 0 0 0 0 rgba(255, 42, 95, 0); }
         }
         .live-badge {
             position: absolute;
-            bottom: -5px;
+            bottom: -6px;
             left: 50%;
             transform: translateX(-50%);
             background: #ff2a5f;
             color: white;
             font-size: 10px;
-            font-weight: bold;
-            padding: 3px 12px;
+            font-weight: 800;
+            padding: 4px 14px;
             border-radius: 20px;
             text-transform: uppercase;
-            border: 2px solid #12141d;
-            letter-spacing: 0.5px;
-            animation: blink 1.2s infinite ease-in-out;
+            border: 2px solid #0b0c14;
+            letter-spacing: 1.2px;
+            animation: pulseLive 1.5s infinite;
         }
 
-        /* Name & Info */
         .name-info {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             cursor: pointer;
         }
         .name-info h1 {
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
+            color: #ffffff;
         }
         .name-info h1 span {
-            background: #262838;
+            background: rgba(38, 40, 56, 0.9);
             font-size: 13px;
             padding: 2px 8px;
             border-radius: 6px;
-            color: #ccc;
+            color: #00cec9;
+            border: 1px solid rgba(255,255,255,0.15);
         }
         .stats {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             font-size: 13px;
-            color: #b2bec3;
-            margin-top: 6px;
+            color: #dfe4ea;
+            margin-top: 4px;
+            font-weight: 500;
         }
 
-        /* Status Box */
         .status-box {
-            background: #1a1c29;
-            border: 1px solid #2a2d42;
-            padding: 12px 15px;
+            background: rgba(20, 22, 32, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 12px 16px;
             border-radius: 12px;
-            font-size: 13px;
+            font-size: 13.5px;
             text-align: center;
-            color: #dfe6e9;
-            margin-bottom: 15px;
+            color: #ffffff;
+            margin-bottom: 14px;
             width: 100%;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            font-weight: 500;
         }
 
-        /* Action Buttons */
+        /* Action Buttons with Advanced Animations & Clear Contrast */
         .buttons-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
+
+        @keyframes buttonPulse {
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 42, 95, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 25px rgba(255, 42, 95, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 42, 95, 0.4); }
+        }
+
         .btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 20px;
-            border-radius: 14px;
+            padding: 16px 20px;
+            border-radius: 16px;
             text-decoration: none;
-            color: white;
+            color: #ffffff;
             font-weight: bold;
             font-size: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease;
         }
-        .btn:active {
-            transform: scale(0.97);
-        }
-        .btn-pink { background: linear-gradient(135deg, #ff2a5f 0%, #ff5e62 100%); }
-        .btn-purple { background: linear-gradient(135deg, #8854d0 0%, #a55eea 100%); }
-        .btn-green { background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); }
-        
-        .btn-content { display: flex; flex-direction: column; }
-        .btn-title { font-size: 15px; font-weight: 700; }
-        .btn-sub { font-size: 11px; font-weight: normal; opacity: 0.85; margin-top: 2px; }
-        .arrow { font-size: 18px; }
 
-        /* Fake Live Comments Section */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: rotate(30deg);
+            animation: shine 3s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        .btn:active { transform: scale(0.97); }
+
+        .btn-pink { 
+            background: linear-gradient(135deg, #ff2a5f 0%, #ff5e62 100%); 
+            animation: buttonPulse 2s infinite ease-in-out;
+            box-shadow: 0 6px 20px rgba(255, 42, 95, 0.5);
+        }
+        .btn-purple { 
+            background: linear-gradient(135deg, #7158e2 0%, #a55eea 100%); 
+            box-shadow: 0 6px 20px rgba(113, 88, 226, 0.5);
+        }
+        .btn-green { 
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); 
+            box-shadow: 0 6px 20px rgba(0, 184, 148, 0.5);
+        }
+        
+        .btn-content { display: flex; flex-direction: column; z-index: 2; }
+        .btn-title { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+        .btn-sub { font-size: 11.5px; font-weight: 600; color: #f1f2f6; opacity: 0.95; margin-top: 3px; }
+        .arrow { font-size: 20px; font-weight: bold; z-index: 2; color: #ffffff; }
+
         .comments-section {
             width: 100%;
-            background: #181a26;
-            border: 1px solid #23263a;
-            border-radius: 12px;
+            background: rgba(16, 18, 28, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
             padding: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.6);
         }
         .comments-title {
-            font-size: 12px;
+            font-size: 11px;
             color: #ff2a5f;
             font-weight: bold;
             margin-bottom: 8px;
             text-transform: uppercase;
+            letter-spacing: 1.2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .comments-box {
-            height: 110px;
+            height: 95px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
         .comment-item {
             font-size: 12px;
-            background: #12141d;
-            padding: 8px 10px;
+            background: rgba(11, 12, 20, 0.95);
+            padding: 7px 10px;
             border-radius: 8px;
-            color: #dcdde1;
+            color: #f1f2f6;
             border-left: 3px solid #ff2a5f;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.4s ease-in-out;
+            font-weight: 500;
         }
         .comment-user {
             font-weight: bold;
             color: #00cec9;
-            margin-right: 5px;
+            margin-right: 6px;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Footer Badges */
         .footer-badges {
             display: flex;
             justify-content: space-around;
             width: 100%;
             margin-top: auto;
-            padding-top: 12px;
-            border-top: 1px solid #1f2233;
-            font-size: 11px;
-            color: #636e72;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 11.5px;
+            color: #a4b0be;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Image Slideshow using your Google Drive Photos -->
-    <div class="bg-slider">
-        <img src="https://lh3.googleusercontent.com/d/1frS6GGgoOY3Z7YdVXdDI0mpv94i5rBF9" class="bg-slide active" alt="Slide">
-        <img src="https://lh3.googleusercontent.com/d/19CC_elJCiHMrg9WgexHpyhKip9I3HZ-6" class="bg-slide" alt="Slide">
-        <img src="https://lh3.googleusercontent.com/d/1MOTY3AWqJQhQI9gjO8d0KBnUjCq2NmfS" class="bg-slide" alt="Slide">
+    <!-- Background Image Slideshow -->
+    <div class="bg-slider" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
+        <img src="https://lh3.googleusercontent.com/d/19CC_elJCiHMrg9WgexHpyhKip9I3HZ-6" class="bg-slide active" alt="Slide">
         <img src="https://lh3.googleusercontent.com/d/1EuU0Bm-eCwZkP1DWJeDorR3OGzUTmPGU" class="bg-slide" alt="Slide">
-        <img src="https://lh3.googleusercontent.com/d/1wbzP5CA8fecG-NNx23sYiHHa6Df0b0l9" class="bg-slide" alt="Slide">
-        <img src="https://lh3.googleusercontent.com/d/16YlRDOzmiKBKXllJDHwjxublUC3PFaRD" class="bg-slide" alt="Slide">
         <img src="https://lh3.googleusercontent.com/d/1zrGTNI5c1vM6r8xwzdZjiNtJaSNPzeC-" class="bg-slide" alt="Slide">
         <img src="https://lh3.googleusercontent.com/d/1yPKLcQSQ7A6pL4rt1BN5NPwa5hm_FnlV" class="bg-slide" alt="Slide">
+        <img src="https://lh3.googleusercontent.com/d/16YlRDOzmiKBKXllJDHwjxublUC3PFaRD" class="bg-slide" alt="Slide">
+        <img src="https://lh3.googleusercontent.com/d/1njGsyLZh-ydBOeohDjyRZz8ucSQEX0XT" class="bg-slide" alt="Slide">
+        <img src="https://lh3.googleusercontent.com/d/1MEXjQcYAlYS8l2knt3ZrQ4qnmDDR2j2W" class="bg-slide" alt="Slide">
         <img src="https://lh3.googleusercontent.com/d/1jZImJt6W5I0y5KjeVEW-dcJjuIVZl4A8" class="bg-slide" alt="Slide">
         <img src="https://lh3.googleusercontent.com/d/1gOlJxaRfkxhaFwWXR9fe-AXzyDfizyX2" class="bg-slide" alt="Slide">
     </div>
-    <div class="bg-overlay"></div>
+    <div class="bg-overlay" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'"></div>
 
     <div class="container">
         <div class="profile-content">
-            <!-- Profile Picture & Blinking Live Badge -->
+            
+            <!-- Top Banner Ad (728x90) -->
+            <div class="ad-banner">
+                <script>
+                  atOptions = {
+                    'key' : '49c6a16462f41844f77ee7020813e92e',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bicea.org/22/49c6a16462f41844f77ee7020813e92e"></script>
+            </div>
+
+            <div class="top-banner">
+                <span><span class="online-dot">●</span> Stream Status: HD Live</span>
+                <span>🔥 4,820 Watching</span>
+            </div>
+
+            <!-- Profile Picture & Live Badge -->
             <div class="profile-container" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
                 <div class="avatar-ring">
                     <img src="https://lh3.googleusercontent.com/d/1A4isZrcu_K8gFEUfozajJN-l2Kbo2p4K" alt="Sophia" class="avatar">
                 </div>
-                <div class="live-badge">LIVE NOW</div>
+                <div class="live-badge">🔴 LIVE NOW</div>
             </div>
 
             <!-- Name & Stats -->
             <div class="name-info" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-                <h1>Sophia <span>22</span></h1>
+                <h1>Sophia <span>23 🔥</span></h1>
                 <div class="stats">
-                    <span>⭐ 4.9 (1.8k reviews)</span>
+                    <span>⭐ 4.9 (2.8k reviews)</span>
                     <span>•</span>
-                    <span>👁️ 2.4k views</span>
+                    <span>🇺🇸 Verified USA</span>
                 </div>
             </div>
 
             <!-- Status Message Box -->
             <div class="status-box" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-                💬 Available for private video calls & chat right now! Let's talk 🔥
+                💬 Free private video calls & VIP chat unlocked! Tap below to connect instantly 😉🚀
             </div>
 
-            <!-- Action Buttons -->
+            <!-- Action Buttons with Direct Link & Pulsing Animation -->
             <div class="buttons-group">
                 <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-pink">
                     <div class="btn-content">
-                        <span class="btn-title">🎥 JOIN FREE CALL</span>
-                        <span class="btn-sub">Start Live Private Cam Stream</span>
+                        <span class="btn-title">🎥 JOIN FREE VIDEO CALL</span>
+                        <span class="btn-sub">Start HD Private Cam Stream Now</span>
                     </div>
                     <span class="arrow">→</span>
                 </a>
 
                 <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-purple">
                     <div class="btn-content">
-                        <span class="btn-title">💬 ROOM CHAT</span>
-                        <span class="btn-sub">Private Instant Messaging</span>
+                        <span class="btn-title">💬 VIP ROOM CHAT</span>
+                        <span class="btn-sub">Direct Messaging & Media Sharing</span>
                     </div>
                     <span class="arrow">→</span>
                 </a>
 
                 <a href="https://auctionr.org/4/16f76d75d75118431887717158c50f66" class="btn btn-green">
                     <div class="btn-content">
-                        <span class="btn-title">📞 FREE CALL</span>
-                        <span class="btn-sub">1-on-1 Direct Audio Connection</span>
+                        <span class="btn-title">📞 1-ON-1 AUDIO CALL</span>
+                        <span class="btn-sub">Instant Secure Voice Connection</span>
                     </div>
                     <span class="arrow">→</span>
                 </a>
             </div>
 
-            <!-- Fake Comments Section -->
+            <!-- Fake Live Comments Section -->
             <div class="comments-section" onclick="location.href='https://auctionr.org/4/16f76d75d75118431887717158c50f66'">
-                <div class="comments-title">🔴 Live Chat Feed</div>
+                <div class="comments-title">🔴 Live Stream Feed</div>
                 <div class="comments-box" id="commentsBox">
-                    <div class="comment-item"><span class="comment-user">Alex_99:</span> Wow, you look stunning! Connecting now... 🔥</div>
-                    <div class="comment-item"><span class="comment-user">David_US:</span> Free call actually works! Hey Sophia! 😉</div>
+                    <div class="comment-item"><span class="comment-user">Alex_99:</span> Wow, crystal clear quality! Connecting now... 🔥</div>
+                    <div class="comment-item"><span class="comment-user">David_US:</span> The free video call actually works instantly! 😉</div>
                 </div>
+            </div>
+
+            <!-- Bottom Banner Ad (300x250) -->
+            <div class="ad-banner" style="margin-bottom: 10px;">
+                <script>
+                  atOptions = {
+                    'key' : '4847bfa4de9944b958fd5b33def798e0',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://bicea.org/22/4847bfa4de9944b958fd5b33def798e0"></script>
             </div>
 
             <!-- Footer Trust Badges -->
             <div class="footer-badges">
                 <span>🛡️ 100% Secure</span>
-                <span>⚡ No Signup Needed</span>
+                <span>⚡ No Signup</span>
                 <span>🔒 Private Line</span>
             </div>
         </div>
@@ -348,16 +463,16 @@
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
-        }, 3500);
+        }, 3000);
 
         // Dynamic Fake Comments Script
         const fakeComments = [
-            {user: "John_NYC", text: "Just joined the private room, amazing quality! 💎"},
-            {user: "Mark_77", text: "She accepted my video call instantly! So hot 🔥"},
-            {user: "Kevin_B", text: "Best live stream ever, click the free call guys!"},
-            {user: "Chris_99", text: "Sophia you look gorgeous in that outfit! 😍"},
-            {user: "Ryan_X", text: "Verified and connected! Wow 10/10 🚀"},
-            {user: "Daniel_K", text: "So smooth, no lag at all. Joining again!"}
+            {user: "John_NYC", text: "Just entered the private room, she is so gorgeous! 💎"},
+            {user: "Mark_77", text: "Accepted my call in 2 seconds! Best stream ever 🔥"},
+            {user: "Kevin_B", text: "Quality is insane! Click the free call guys 🚀"},
+            {user: "Chris_99", text: "Hey Sophia! Glad I caught you live today 😍"},
+            {user: "Ryan_X", text: "Verified successfully. 10/10 experience!"},
+            {user: "Daniel_K", text: "Zero lag and super smooth video chatting!"}
         ];
 
         const commentsBox = document.getElementById('commentsBox');
@@ -374,7 +489,7 @@
                 commentsBox.removeChild(commentsBox.children[0]);
             }
             commentIndex = (commentIndex + 1) % fakeComments.length;
-        }, 3000);
+        }, 2500);
     </script>
 </body>
 </html>
